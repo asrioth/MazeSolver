@@ -1,6 +1,7 @@
-from cell import Cell
+from cell import Cell, WallDirection
 from point import Point
 import time
+import random
 
 class Maze():
     def __init__(self, point, num_rows, num_cols, cell_size_x, cell_size_y, window = None):
@@ -12,6 +13,7 @@ class Maze():
         self.window = window
         self._cells = []
         self._create_cells()
+        self._break_entrance_and_exit()
     
     def _create_cells(self):
         current_point = Point()
@@ -25,14 +27,24 @@ class Maze():
             self._draw_cells()
     
     def _draw_cells(self):
-        print(self._cells)
         for i in range(self.num_cols):
             for j in range(self.num_rows):
-                self._cells[i][j].draw()
+                self._draw_cell(i, j)
+
+    def _draw_cell(self, i, j):
+        self._cells[i][j].draw()
+        self._animate()
+    
+    def _break_entrance_and_exit(self):
+        self._cells[0][0].walls[random.choice([WallDirection.LEFT.value, WallDirection.TOP.value])] = False
+        self._cells[-1][-1].walls[random.choice([WallDirection.RIGHT.value, WallDirection.BOTTOM.value])] = False
+        if self.window != None:
+            self._draw_cell(0, 0)
+            self._draw_cell(-1, -1)
 
     def _animate(self):
         self.window.redraw()
-        time.sleep(0.05)
+        time.sleep(0.005)
 
 
 
