@@ -8,3 +8,6 @@ class Line():
     
     def draw(self, canvas, colour):
         canvas.create_line(self.point1.x, self.point1.y, self.point2.x, self.point2.y, fill = colour, width = 2)
+
+    def __eq__(self, line):
+        return self.point1 == line.point1 and self.point2 == line.point2

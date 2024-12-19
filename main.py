@@ -9,7 +9,7 @@ from maze import Maze
 
 def main():
     win = Window(800, 600)
-    maze = Maze(Point(25, 25), 15, 11, 50, 50, win)
+    maze = Maze(Point(25, 25), 4, 4, 50, 50, win)
     """cell1 = Cell(win, [True, True, True, True])
     cell2 = Cell(win, [True, True, True, False])
     cell3 = Cell(win, [True, True, False, False])

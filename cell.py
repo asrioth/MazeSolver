@@ -3,7 +3,7 @@ from line import Line
 from window import Window
 
 class Cell():
-    def __init__(self, window, top_left, bottom_right, walls = [True,True,True,True]):
+    def __init__(self, top_left, bottom_right, walls = [True,True,True,True], window = None):
         self.has_left_wall = walls[0]
         self.has_right_wall = walls[1]
         self.has_top_wall = walls[2]
@@ -42,3 +42,6 @@ class Cell():
         if self.has_bottom_wall:
             lines.append(Line(Point(self._top_left.x, self._bottom_right.y), self._bottom_right))
         return lines
+    
+    def __repr__(self):
+        return f"Cell({self._top_left}, {self._bottom_right}, [{self.has_left_wall}, {self.has_right_wall}, {self.has_top_wall}, {self.has_bottom_wall}])"
