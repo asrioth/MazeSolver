@@ -9,10 +9,11 @@ class Window():
         self.height = height
         self.running = False
         self.root = Tk()
-        self.root.wm_maxsize(width, height)
+        self.root.geometry(f"{width}x{height}")
+        #self.root.minsize(width, height)
         self.root.title("Maze Solver")
-        self.canvas = Canvas(self.root)
-        Canvas.pack(self.canvas)
+        self.canvas = Canvas(self.root, width = width, height= height)
+        Canvas.pack(self.canvas, fill="both")
         self.root.protocol("WM_DELETE_WINDOW", self.close)
 
     def redraw(self):
