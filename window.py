@@ -1,4 +1,5 @@
 from tkinter import Tk, BOTH, Canvas
+from line import Line
 
 
 class Window():
@@ -8,6 +9,7 @@ class Window():
         self.height = height
         self.running = False
         self.root = Tk()
+        self.root.wm_maxsize(width, height)
         self.root.title("Maze Solver")
         self.canvas = Canvas(self.root)
         Canvas.pack(self.canvas)
@@ -24,3 +26,6 @@ class Window():
 
     def close(self):
         self.running = False
+
+    def draw_line(self, line, fill):
+        line.draw(self.canvas, fill)
