@@ -31,6 +31,50 @@ class Tests(unittest.TestCase):
         self.assertTrue(start_broken)
         self.assertTrue(end_broken)
 
+    def test_get_neighbours(self):
+        num_cols = 8
+        num_rows = 8
+        m1 = Maze(Point(), num_rows, num_cols, 10, 10)
+        neighbours = m1._get_neighbours(0, 7)
+        expected_neighbours = [(1, 7, WallDirection.RIGHT), (0, 6, WallDirection.TOP)]
+        self.assertEqual(neighbours, expected_neighbours)
+        neighbours = m1._get_neighbours(7, 0)
+        expected_neighbours = [(6, 0, WallDirection.LEFT), (7, 1, WallDirection.BOTTOM)]
+        self.assertEqual(neighbours, expected_neighbours)
+        neighbours = m1._get_neighbours(4, 4)
+        self.assertEqual(len(neighbours), 4)
+
+    def test_break_wall(self):
+        num_cols = 8
+        num_rows = 8
+        m1 = Maze(Point(), num_rows, num_cols, 10, 10)
+        neighbours = m1._get_neighbours(4,4)
+        i = 0
+        m1._break_wall(neighbours[i], 4, 4)
+        self.assertFalse(m1._cells[4][4].walls[neighbours[i][2].value])
+        self.assertFalse(m1._cells[neighbours[i][0]][neighbours[i][1]].walls[WallDirection.RIGHT.value])
+        i = 1
+        m1._break_wall(neighbours[i], 4, 4)
+        self.assertFalse(m1._cells[4][4].walls[neighbours[i][2].value])
+        self.assertFalse(m1._cells[neighbours[i][0]][neighbours[i][1]].walls[WallDirection.LEFT.value])
+        i = 2
+        m1._break_wall(neighbours[i], 4, 4)
+        self.assertFalse(m1._cells[4][4].walls[neighbours[i][2].value])
+        self.assertFalse(m1._cells[neighbours[i][0]][neighbours[i][1]].walls[WallDirection.BOTTOM.value])
+        i = 3
+        m1._break_wall(neighbours[i], 4, 4)
+        self.assertFalse(m1._cells[4][4].walls[neighbours[i][2].value])
+        self.assertFalse(m1._cells[neighbours[i][0]][neighbours[i][1]].walls[WallDirection.TOP.value])
+
+    def test_reset_cells_visited(self):
+        num_cols = 8
+        num_rows = 8
+        m1 = Maze(Point(), num_rows, num_cols, 10, 10)
+        m1._break_walls_r(0, 0)
+        self.assertTrue(m1._cells[4][4].visited)
+        m1._reset_cells_visited()
+        self.assertFalse(m1._cells[4][4].visited)
+
 
 
 if __name__ == "__main__":

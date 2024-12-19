@@ -17,6 +17,7 @@ class Cell():
         self._top_left = top_left
         self._bottom_right = bottom_right
         self._window = window
+        self.visited = False
 
     def draw(self):
         lines, blank_lines = self.make_cell_lines()
