@@ -10,6 +10,7 @@ from maze import Maze
 def main():
     win = Window(800, 600)
     maze = Maze(Point(25, 25), 11, 15, 50, 50, win)
+    maze.solve()
     """cell1 = Cell(win, [True, True, True, True])
     cell2 = Cell(win, [True, True, True, False])
     cell3 = Cell(win, [True, True, False, False])

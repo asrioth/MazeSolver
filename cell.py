@@ -65,5 +65,26 @@ class Cell():
             blank_lines.append(bottom_line)
         return lines, blank_lines
     
+    def inverse_direction(self, direction):
+        match direction:
+            case WallDirection.LEFT:
+                return WallDirection.RIGHT
+            case WallDirection.RIGHT:
+                return WallDirection.LEFT
+            case WallDirection.TOP:
+                return WallDirection.BOTTOM
+            case WallDirection.BOTTOM:
+                return WallDirection.TOP
+            case _:
+                raise Exception("direction not recognised")
+
+    def can_move_to_cell(self, to_cell, direction):
+        self_no_wall_in_dir = self.walls[direction.value] == False
+        dest_no_wall_in_dir = to_cell.walls[self.inverse_direction(direction).value] == False
+        return self_no_wall_in_dir and dest_no_wall_in_dir
+    
     def __repr__(self):
         return f"Cell({self._top_left}, {self._bottom_right}, [{self.has_left_wall}, {self.has_right_wall}, {self.has_top_wall}, {self.has_bottom_wall}])"
+    
+    def __eq__(self, cell):
+        return self._top_left == cell._top_left and self._bottom_right == cell._bottom_right and self.walls == cell.walls

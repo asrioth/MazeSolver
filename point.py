@@ -4,6 +4,8 @@ class Point():
         self.y = y
 
     def __eq__(self, point):
+        if type(self) != type(point):
+            return False
         return self.x == point.x and self.y == point.y
     
     def __repr__(self):
